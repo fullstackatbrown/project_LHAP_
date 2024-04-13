@@ -19,7 +19,7 @@ interface NavbarProps {
   profileUrl: string;
   handleSignIn: () => void;
   handleSignOut: () => void;
-  currentPage?: "home" | "about" | "team" | "activities" | "blog";
+  currentPage?: "home" | "about" | "team" | "activities" | "blog" | "volunteer";
 }
 
 export default function Navbar({
@@ -44,6 +44,7 @@ export default function Navbar({
       current: false,
     },
     { name: "Blog", href: "/posts/", current: false },
+    { name: "Volunteering", href: "/volunteer/", current: false },
   ];
 
   return (
