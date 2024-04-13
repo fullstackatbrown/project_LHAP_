@@ -39,8 +39,8 @@ export default function Navbar({
       current: false,
     },
     {
-      name: "Activities",
-      href: "/activities/",
+      name: "Programs",
+      href: "/programs/",
       current: false,
     },
     { name: "Blog", href: "/posts/", current: false },
