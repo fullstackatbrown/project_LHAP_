@@ -86,7 +86,7 @@ const Home = () => {
       <div className="bg-purple-700 flex flex-col items-center justify-center w-full h-[150px] lg:h-[200px]">
         <div className="text-left w-full px-10 lg:px-[150px]">
           <h1 className="lg:text-6xl text-4xl text-white">
-            What does it mean to volunteer?
+            What does it mean to be a volunteer?
           </h1>
         </div>
       </div>
