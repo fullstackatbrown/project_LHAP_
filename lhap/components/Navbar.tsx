@@ -74,12 +74,12 @@ export default function Navbar({
                   <Image
                     className="lg:block hidden h-[125px] w-auto py-5"
                     src={logo_long}
-                    alt="Brown Conversational AI Lab Logo"
+                    alt="Lung Health Ambassadors Program RI Logo"
                   />
                   <Image
                     className="lg:hidden visible h-24 w-auto py-5"
                     src={logo_short}
-                    alt="Brown Conversational AI Lab Logo"
+                    alt="Lung Health Ambassadors Program RI Logo"
                   />
                 </div>
               </div>
