@@ -1,122 +1,208 @@
 "use client";
-import { db } from "../../firebaseClient";
-import { collection, doc, getDoc } from "firebase/firestore";
-import { useState, useEffect, ReactElement } from "react";
+import { useState, ReactElement } from "react";
+import Image from "next/image";
 import PageShell from "../../components/PageShell";
+import Gallery from "../../components/Gallery"; 
 
-export default function About() {
-  const [uid, setUid] = useState<string>("");
-  return (
-    <PageShell uid={uid} setUid={(newUid) => setUid(newUid)}>
-      <Home />
-    </PageShell>
-  );
-}
-
+// Define the TypeScript type for images
 type Image = {
   caption: string;
   file_name: string;
 };
 
-const img1: Image = {
-  caption: "Placeholder",
-  file_name: "logo_short.png",
-};
-const img2: Image = {
-  caption: "Placeholder",
-  file_name: "logo_short.png",
-};
-const img3: Image = {
-  caption: "Placeholder",
-  file_name: "logo_short.png",
+type TimelineEventProps = {
+  date: string;
+  children: React.ReactNode;
 };
 
-const images: Image[] = [img1, img2, img3];
 
-const Home = () => {
-  let images_section: ReactElement[] = [];
-  images.forEach((image, index) => {
-    images_section.push(
-      <div className="px-10 py-20">
-        <img
-          src={`/assets/about/${image.file_name}`}
-          width={"800px"}
-          height={"800px"}
-        />
-        <div className="text-center italic mt-1 px-5 py-2 w-full lg:text-lg text-lg">
-          {image.caption}
-        </div>
+
+// Define the images used on the page
+const images: Image[] = [
+  { caption: "Placeholder", file_name: "blueno.png" },
+  // Uncomment or add more images as needed
+  // { caption: "Another Placeholder", file_name: "another_image.png" },
+  // { caption: "Additional Placeholder", file_name: "additional_image.png" }
+];
+
+const TimelineEvent = ({ date, children }: TimelineEventProps) => {
+  return (
+    <div className="flex items-center mb-6">
+      <div className="flex-shrink-0 ml-10 w-14 h-14 bg-blue-500 rounded-full flex items-center justify-center text-m font-semibold text-white mr-4">
+        {date}
       </div>
-    );
-  });
+      <div className="flex-1 text-center text-white">{children}</div>
+    </div>
+  );
+};
+
+// Component to render the entire timeline
+const Timeline = () => {
+  const events = [
+    { date: "2017", content: "Opened Lung Health Program ..." },
+    { date: "2018", content: "Continued Lung Health Program ..." },
+    { date: "2020", content: "Published Lung Health Program ..." },
+    { date: "2021", content: "Opened Lung Health Program ..." },
+    { date: "2023", content: "Opened Lung Health Program ..." },
+    // More events soon...
+  ];
 
   return (
-    <div>
-      <div className="bg-purple-700 flex flex-col items-center justify-center w-full h-[150px] lg:h-[200px]">
-        <div className="text-left w-full px-10 lg:px-[150px]">
-          <h1 className="lg:text-6xl text-4xl text-white">About Us</h1>
-        </div>
+    <div className="py-10">
+      <div className="border-l-2 border-gray-200">
+        {events.map((event, index) => (
+          <TimelineEvent key={index} date={event.date}>
+            <p className="text-white-700">{event.content}</p>
+          </TimelineEvent>
+        ))}
       </div>
-      <div className="flex flex-col lg:flex-row gap-2.5 lg:gap-10">
-        <div className=" px-10 py-10 lg:pr-0 lg:pl-20 lg:py-20 space-y-6 lg:w-1/2 w-full flex flex-col justify-center">
-          <h1 className="transition-all duration-300 lg:text-4xl text-4xl font-bold">
-            Our Mission
-          </h1>
-          <div className="transition-all duration-300 w-full lg:text-2xl text-lg">
-            Welcome to the Lung Health Ambassadors Program. Lorem ipsum lorem
-            ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-            lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum .
-          </div>
+    </div>
+  );
+};
 
-          <br></br>
-          <h1 className="transition-all duration-300 lg:text-4xl text-4xl font-bold">
-            Volunteering
-          </h1>
-          <br></br>
-          <div className="transition-all duration-300 w-full lg:text-2xl text-lg">
-            Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem
-            ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-            lorem ipsum .
-          </div>
-          <div className="transition-all duration-300 w-full lg:text-2xl text-lg">
-            Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem
-            ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-            lorem ipsum .
-          </div>
-          <div className="transition-all duration-300 w-full lg:text-2xl text-lg">
-            Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem
-            ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-            lorem ipsum .
-          </div>
-          <div className="transition-all duration-300 w-full lg:text-2xl text-lg">
-            Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem
-            ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-            lorem ipsum .
-          </div>
+const peopleData = [
+  { name: "Person 1", title: "Title 1", imageUrl: "/assets/about/blueno.png" },
+  { name: "Person 2", title: "Title 2", imageUrl: "/assets/about/blueno.png" },
+  { name: "Person 2", title: "Title 2", imageUrl: "/assets/about/blueno.png" },
+  { name: "Person 2", title: "Title 2", imageUrl: "/assets/about/blueno.png" },
+  { name: "Person 2", title: "Title 2", imageUrl: "/assets/about/blueno.png" },
+  { name: "Person 2", title: "Title 2", imageUrl: "/assets/about/blueno.png" },
+  { name: "Person 2", title: "Title 2", imageUrl: "/assets/about/blueno.png" },
+  { name: "Person 2", title: "Title 2", imageUrl: "/assets/about/blueno.png" },
+  // ... other people
+];
 
-          <div className="transition-all duration-300 w-full lg:text-2xl text-lg">
-            Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem
-            ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-            lorem ipsum .
-          </div>
-          <div className="transition-all duration-300 w-full lg:text-2xl text-lg">
-            Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem
-            ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-            lorem ipsum .
-          </div>
-          <div className="transition-all duration-300 w-full lg:text-2xl text-lg">
-            Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem
-            ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-            lorem ipsum .
-          </div>
-        </div>
+const communityData = [
+  { name: "Brown University", title: "Title 1", imageUrl: "/assets/brown.png" },
+  { name: "Medicine for Greater Good", title: "Title 1", imageUrl: "/assets/mgg.png" },
+  { name: "Breathe Center", title: "Title 1", imageUrl: "/assets/johnshopkins.png" },
+  { name: "Company 1", title: "Title 1", imageUrl: "/assets/about/blueno.png" },
+  { name: "Company 1", title: "Title 1", imageUrl: "/assets/about/blueno.png" },
+];
 
-        <div className="transition-all duration-300 scale-100 transform-scale-y-[-1]">
-          <div className="px-10 py-2"></div>
 
-          <div className="lg:pt-[100px]">{images_section}</div>
-        </div>
+// Define the main component for the About page
+export default function About() {
+  const [uid, setUid] = useState<string>("");
+  return (
+    <PageShell uid={uid} setUid={(newUid) => setUid(newUid)}>
+      <AboutContent />
+    </PageShell>
+  );
+}
+
+// Define the content component for the About page
+const AboutContent = () => {
+  // Generate sections for each image
+  const imageSections = images.map((image, index) => (
+    <div key={index} className="text-center px-10 py-20">
+      <div className="inline-block relative w-full h-0 pb-[60%]">
+        {" "}
+        <Image
+          src={`/assets/about/${image.file_name}`}
+          alt={image.caption}
+          layout="fill"
+          objectFit="cover" 
+        />
       </div>
+      <p className="italic mt-2">{image.caption}</p>
+    </div>
+  ));
+
+  return (
+    <div className="flex flex-col h-auto max-w-4xl mx-auto">
+      <section className="py-20">
+        <div className="flex gap-1">
+          <div className="flex-1 max-w-md">
+            <h2 className="text-4xl font-bold">About Us</h2>
+            <br></br>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem
+              ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+              tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum
+              dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+              incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit
+              amet, consectetur adipiscing elit, sed do eiusmod tempor
+              incididunt ut labore et dolore magna aliqua.
+            </p>
+          </div>
+          <div className="flex-1">
+            <Image
+              src="/assets/hospital.png"
+              alt="About US"
+              width={500}
+              height={300}
+            />
+          </div>
+        </div>
+      </section>
+
+      <section
+        style={{
+          color: "white",
+          textAlign: "center",
+          padding: "20px 0", // Add padding above and below the text
+          width: "100%",
+        }}
+      >
+        <h2 className="text-4xl font-bold">Our Journey</h2>
+      </section>
+      <section>
+        <Timeline></Timeline>
+      </section>
+      <section
+        style={{
+          color: "white",
+          textAlign: "center",
+          padding: "20px 0", // Add padding above and below the text
+          width: "100%",
+        }}
+      >
+        <h2 className="text-4xl font-bold">Our Team</h2>
+      </section>
+      <section>
+        <Gallery people={peopleData} />
+      </section>
+      <br></br>
+      <br></br>
+      <br></br>
+      <section
+        style={{
+          color: "white",
+          textAlign: "center",
+          padding: "20px 0", // Add padding above and below the text
+          width: "100%",
+        }}
+      >
+        <h2 className="text-4xl font-bold">Community Partners</h2>
+      </section>
+      <section>
+        <Gallery people={communityData} />
+      </section>
+      <section className="px-10 py-10 space-y-6">
+        <h2 className="text-4xl font-bold">Our Chapters</h2>
+        <div className="w-full h-[200px] lg:h-[300px] relative my-4">
+          {" "}
+          <Image
+            src="/assets/about/stock.png"
+            alt="Volunteer Activities"
+            layout="fill"
+            objectFit="cover"
+          />
+        </div>
+        <p className="text-lg">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem
+          ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor
+          sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+          incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit
+          amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+          labore et dolore magna aliqua.
+        </p>
+        {/* {imageSections} */}
+      </section>
     </div>
   );
 };
