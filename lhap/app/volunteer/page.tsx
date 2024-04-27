@@ -13,6 +13,8 @@ import {
 import { firebaseApp } from "@/firebaseClient";
 import { useState, useEffect, ReactElement } from "react";
 import PageShell from "../../components/PageShell";
+import CustomizedAccordions from "../../components/Accordion";
+import RegisterForm from "@/components/SignUp";
 
 export default function About() {
   const [uid, setUid] = useState<string>("");
@@ -63,6 +65,11 @@ const Home = () => {
   const [uid, setUid] = useState<string>("");
   const [email, setEmail] = useState<string | null>(null);
   const [profileUrl, setProfileUrl] = useState<string>("");
+  const [name, setName] = useState(""); // State for name input
+  const [emailField, setEmailField] = useState(""); // State for email input
+  const [school, setSchool] = useState(""); // State for school input
+  const [age, setAge] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
 
   const auth = getAuth(firebaseApp);
   const provider = new GoogleAuthProvider();
@@ -90,10 +97,13 @@ const Home = () => {
           </h1>
         </div>
       </div>
-      <div className="flex flex-col justify-center items-center lg:flex-row gap-2.5 lg:gap-10">
-        <div className=" px-10 py-10 lg:pr-0 lg:pl-20 lg:py-20 space-y-6 lg:w-1/2 w-full flex flex-col justify-center">
+      <div className="flex flex-col w-full justify-center items-center lg:flex-row gap-2.5 lg:gap-10">
+        <div
+          className="px-10 py-10 lg:pr-0 lg:pl-20 lg:py-20 space-y-6 lg:w-3/4 w-full flex flex-col justify-center"
+          style={{ marginBottom: "2rem" }}
+        >
           <br></br>
-          <h1 className="transition-all duration-300 lg:text-4xl text-4xl font-bold">
+          <h1 className="transition-all duration-300 lg:text-4xl text-4xl font-bold text-center">
             Volunteering
           </h1>
           <br></br>
@@ -124,12 +134,105 @@ const Home = () => {
             lorem ipsum .
           </div>
           <div className="transition-all items-center duration-300 w-full lg:text-2xl text-lg text-center">
-            <button
+            {/* <button
               className="text-lg px-10 ml-5 font-bold bg-green-300 p-2 rounded-full"
               onClick={handleSignIn}
             >
               Sign up
-            </button>
+            </button> */}
+          </div>
+          <br></br>
+          <h1
+            className="transition-all duration-300 lg:text-4xl text-4xl font-bold text-center"
+            style={{ marginBottom: "2rem" }}
+          >
+            FAQ
+          </h1>
+          <br></br>
+          <div className="transition-all items-center duration-300 w-full lg:text-2xl text-lg text-center">
+            <CustomizedAccordions />
+          </div>
+          {/* <div className="transition-all items-center duration-300  text-center">
+            <RegisterForm />
+          </div> */}
+          <br></br>
+          <h1
+            className="transition-all duration-300 lg:text-4xl text-4xl font-bold text-center"
+            style={{ marginBottom: "2rem" }}
+          >
+            Volunteer with us!
+          </h1>
+          <br></br>
+          {/* <RegisterForm /> */}
+          <div className="transition-all duration-300  text-lg w-full">
+            <div className="flex flex-col items-center space-y-4 w-full">
+              <input
+                type="text"
+                placeholder="Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                style={{
+                  width: "100%",
+                  textAlign: "center",
+                  marginBottom: "1rem",
+                }}
+                className="border border-gray-400 px-4 py-2 rounded-none w-full lg:w-auto"
+              />
+              <input
+                type="email"
+                placeholder="Email"
+                value={emailField}
+                onChange={(e) => setEmailField(e.target.value)}
+                style={{
+                  width: "100%",
+                  textAlign: "center",
+                  marginBottom: "1rem",
+                }}
+                className="border border-gray-400 px-4 py-2 rounded-none w-full lg:w-auto"
+              />
+              <input
+                type="text"
+                placeholder="School"
+                value={school}
+                onChange={(e) => setSchool(e.target.value)}
+                style={{
+                  width: "100%",
+                  textAlign: "center",
+                  marginBottom: "1rem",
+                }}
+                className="border border-gray-400 px-4 py-2 rounded-none w-full lg:w-auto"
+              />
+              <input
+                type="text"
+                placeholder="Age"
+                value={age}
+                onChange={(e) => setAge(e.target.value)}
+                style={{
+                  width: "100%",
+                  textAlign: "center",
+                  marginBottom: "1rem",
+                }}
+                className="border border-gray-400 px-4 py-2 rounded-none w-full lg:w-auto"
+              />
+              <input
+                type="text"
+                placeholder="Phone Number"
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
+                style={{
+                  width: "100%",
+                  textAlign: "center",
+                  marginBottom: "1rem",
+                }}
+                className="border border-gray-400 px-4 py-2 rounded-none w-full lg:w-auto"
+              />
+              <button
+                className="text-lg px-10 ml-5 font-bold bg-green-300 p-2 rounded-full"
+                onClick={handleSignIn}
+              >
+                Sign up
+              </button>
+            </div>
           </div>
         </div>
         {/* <div className="transition-all duration-300 w-full lg:text-2xl text-lg">
