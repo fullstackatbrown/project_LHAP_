@@ -1,6 +1,5 @@
 "use client";
 import { db } from "../../firebaseClient";
-import { collection, doc, getDoc } from "firebase/firestore";
 import { useState, useEffect, ReactElement } from "react";
 import PageShell from "../../components/PageShell";
 
