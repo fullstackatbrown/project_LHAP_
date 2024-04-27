@@ -34,13 +34,13 @@ export default function Navbar({
   const navigation = [
     { name: "About", href: "/about/", current: false },
     {
-      name: "Our Team",
-      href: "/team/",
+      name: "Programs",
+      href: "/programs/",
       current: false,
     },
     {
-      name: "Programs",
-      href: "/programs/",
+      name: "Get Involved",
+      href: "/involved/",
       current: false,
     },
     { name: "Blog", href: "/posts/", current: false },

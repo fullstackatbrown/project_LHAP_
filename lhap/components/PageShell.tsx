@@ -12,6 +12,15 @@ import {
 import { firebaseApp } from "@/firebaseClient";
 import { createUserDBEntry } from "@/components/util/userDBFunctions";
 import { AnyARecord } from "dns";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import {
+  faInstagram,
+  faFacebook,
+  faYoutube,
+} from "@fortawesome/free-brands-svg-icons";
+library.add(faInstagram, faFacebook, faYoutube);
+
 
 export default function PageShell(props: {
   uid: string;
@@ -77,7 +86,7 @@ const Home = (props: {
     setProfileUrl(props.profileUrl);
   }, [props.uid, props.email, props.profileUrl]);
   return (
-    <div className="max-w-[100vw]">
+    <div className="max-w-[100vw] min-h-[40vw] bg-gradient-to-r from-[#232526] via-[#232526] to-[#232526]">
       <div className="sticky top-0 w-full z-50">
         <Navbar
           uid={uid}
@@ -87,6 +96,55 @@ const Home = (props: {
         />
       </div>
       {props.children}
+
+      {/* TODO: Factor out this module*/}
+      <div style={{ marginTop: "100px" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            marginBottom: "10px",
+          }}
+        >
+          <a
+            href="https://www.instagram.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ margin: "0 10px" }}
+          >
+            <FontAwesomeIcon
+              icon={faInstagram}
+              style={{ color: "white", fontSize: "34px" }}
+            />
+          </a>
+
+          <a
+            href="https://www.facebook.com/w"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ margin: "10px" }}
+          >
+            <FontAwesomeIcon
+              icon={faFacebook}
+              style={{ color: "white", fontSize: "34px" }}
+            />
+          </a>
+
+          <a
+            href="https://www.youtube.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ margin: "0 10px" }}
+          >
+            <FontAwesomeIcon
+              icon={faYoutube}
+              style={{ color: "white", fontSize: "34px" }}
+            />
+          </a>
+        </div>
+      </div>
     </div>
   );
 };
